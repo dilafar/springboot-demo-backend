@@ -8,12 +8,14 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.stereotype.Component;
 
 import com.demo.demoproject.dal.model.ProductModel;
 import com.demo.demoproject.dal.repository.productMongoRepository;
 import com.demo.demoproject.domain.Product;
 import com.demo.demoproject.domain.ProductDataAdapter;
 
+@Component
 public class ProductDataAdapterMongoImpl implements ProductDataAdapter{
 
     private final productMongoRepository repository;
