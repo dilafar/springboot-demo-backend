@@ -7,4 +7,5 @@ public interface NoticeDataAdapter {
     Notice SaveNotice(Notice notice);
     Notice UpdatNotice(Notice notice);
     void DeleteNotice(String noticeid);
+    Notice getSingleNotice(String noticeid);
 }

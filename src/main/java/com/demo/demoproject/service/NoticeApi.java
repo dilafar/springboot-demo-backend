@@ -33,4 +33,8 @@ public class NoticeApi {
     public void deleteNotice(String noticeid){
          noticeDataAdapter.DeleteNotice(noticeid);
     }
+
+    public Notice getSingle(String noticeid){
+        return noticeDataAdapter.getSingleNotice(noticeid);
+    }
 }

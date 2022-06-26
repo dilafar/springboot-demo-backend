@@ -8,4 +8,5 @@ import com.demo.demoproject.dal.model.NoticeModel;
 @Repository
 public interface noticeMongoRepository extends MongoRepository<NoticeModel , String>{
     void deleteNoticeModelByPostID(String noticeid);
+    NoticeModel findNoticeModelByPostID(String noticeid);
 }

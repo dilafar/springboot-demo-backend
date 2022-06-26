@@ -2,6 +2,7 @@ package com.demo.demoproject.dal.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -67,6 +68,20 @@ public class ProductDataAdapterMongoImpl implements ProductDataAdapter{
     public void DeleteProduct(String productID) {
        repository.deleteProductModelByProductID(productID);
         
+    }
+
+
+
+    @Override
+    public Product getSingleProduct(String productID) {
+        ProductModel productModel = repository.findProductModelByProductID(productID);
+        Product product = new Product();
+        product.setProductID(productModel.getProductID());
+        product.setDescription(productModel.getDescription());
+        product.setName(productModel.getName());
+        product.setPrice(productModel.getPrice());
+        
+        return product;
     }
     
 }

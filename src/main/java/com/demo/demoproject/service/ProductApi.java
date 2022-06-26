@@ -34,6 +34,10 @@ public class ProductApi {
         productDataAdapter.DeleteProduct(productID);
     }
 
+    public Product getSingle(String productID){
+        return productDataAdapter.getSingleProduct(productID);
+    }
+
 
 
 }

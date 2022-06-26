@@ -13,6 +13,7 @@ import com.demo.demoproject.dal.model.NoticeModel;
 import com.demo.demoproject.dal.repository.noticeMongoRepository;
 import com.demo.demoproject.domain.Notice;
 import com.demo.demoproject.domain.NoticeDataAdapter;
+import com.demo.demoproject.domain.Product;
 
 @Component
 public class NoticeDataAdapterMongoImpl implements NoticeDataAdapter{
@@ -65,6 +66,17 @@ public class NoticeDataAdapterMongoImpl implements NoticeDataAdapter{
     public void DeleteNotice(String noticeid) {
        repository.deleteNoticeModelByPostID(noticeid);
         
+    }
+
+    @Override
+    public Notice getSingleNotice(String noticeid) {
+        NoticeModel noticeModel = repository.findNoticeModelByPostID(noticeid);
+        Notice notice = new Notice();
+        notice.setPostID(noticeModel.getPostID());
+        notice.setDescription(noticeModel.getDescription());
+        notice.setTitle(noticeModel.getTitle());
+        notice.setDate(noticeModel.getDate());
+        return notice;
     }
     
 }

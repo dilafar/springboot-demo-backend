@@ -2,6 +2,7 @@ package com.demo.demoproject.dal.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -70,6 +71,12 @@ public class UserDataAdapterMongoImpl implements UserDataAdapter{
        
         repository.deleteUserModelByUserId(userId);
         
+    }
+
+    @Override
+    public Optional<UserModel> getSingleUser(String userId) {
+        
+        return repository.findUserModelByEmail(userId);
     }
     
 }
