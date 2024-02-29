@@ -20,6 +20,16 @@ pipeline{
         }
 
         stages{
+            stage("increment version"){
+                steps{
+                    script{
+                        incrementPatchVersion()
+                        def version = readFile('pom.xml')=~ '<version>(.+)</version>'
+                        def build_version = version[0][1]
+                        env.IMAGE_NAME = "${build_version}-${BUILD_NUMBER}"
+                    }
+                }
+            }
             stage("build"){
                 steps{
                     script{
@@ -44,9 +54,9 @@ pipeline{
             stage("build and push image"){
                             steps{
                                   script{
-                                      buildImage("fadhiljr/mssample:java-maven-2.4")
+                                      buildImage(IMAGE_NAME)
                                       dockerLogin()
-                                      dockerPush("fadhiljr/mssample:java-maven-2.4")
+                                      dockerPush(IMAGE_NAME)
                                   }
                             }
              }
