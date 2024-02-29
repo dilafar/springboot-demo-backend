@@ -1,3 +1,10 @@
+#!usr/bin/env groovy
+
+library identifier: "jenkins-shared-library@master" , retriever: modernSCM([
+        $class: "GitSCMSource",
+        remote: "https://github.com/dilafar/jenkins-shared-library.git",
+        credentialsId: "git-credentials",
+])
 def gv
 pipeline{
         agent any
@@ -24,8 +31,7 @@ pipeline{
             stage("build"){
                 steps{
                     script{
-                            gv.buildApp()
-                            echo "building the branch ${BRANCH_NAME}..."
+                            buildApp()
                     }
                 }
             }
@@ -38,37 +44,25 @@ pipeline{
                 }
                 steps{
                       script{
-                        gv.testApp()
+                        testApp()
                       }
                 }
             }
 
             stage("build and push image"){
-                when{
-                        expression{
-                                BRANCH_NAME=='master'
-                        }
-                    }
                             steps{
                                   script{
-                                   gv.buildImage()
+                                   buildImage()
                                   }
                             }
              }
 
             stage("deploy"){
-                         when{
-                                    expression{
-                                            BRANCH_NAME=='master'
-                                    }
-                          }
-
                 steps{
                         script{
-                            env.ENV_NEW = input message:"select deployment environment" , ok:"done",parameters:[
-                            choice(name: 'ENV',choices:["test","dev","prod"],description:'select env')]
-                            gv.deployApp()
-                            echo "deploy to ${ENV_NEW}"
+
+                            deployApp()
+
                         }
                   }
              }
