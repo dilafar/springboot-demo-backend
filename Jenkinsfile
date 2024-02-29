@@ -25,6 +25,7 @@ pipeline{
                 steps{
                     script{
                             gv.buildApp()
+                            echo "building the branch ${BRANCH_NAME}..."
                     }
                 }
             }
@@ -43,6 +44,11 @@ pipeline{
             }
 
             stage("build and push image"){
+                when{
+                        expression{
+                                BRANCH_NAME=='master'
+                        }
+                    }
                             steps{
                                   script{
                                    gv.buildImage()
@@ -51,6 +57,12 @@ pipeline{
              }
 
             stage("deploy"){
+                         when{
+                                    expression{
+                                            BRANCH_NAME=='master'
+                                    }
+                          }
+
                 steps{
                         script{
                             env.ENV_NEW = input message:"select deployment environment" , ok:"done",parameters:[
