@@ -1,4 +1,4 @@
-
+def gv
 pipeline{
         agent any
         environment{
@@ -13,31 +13,40 @@ pipeline{
         }
 
         stages{
+             stage("init"){
+                            steps{
+                                script{
+                                    gv = load "script.groovy"
+                                }
+                            }
+                        }
+
             stage("build"){
                 steps{
                     script{
-                            echo "build the pipeline in ..."
-                            echo "build version ${NEW_VERSION}..."
-                            sh "mvn install"
+                            gv.buildApp()
                     }
                 }
             }
 
-        stage("test"){
-            when{
-                expression{
-                    params.executeTests
+            stage("test"){
+                when{
+                 expression{
+                        params.executeTests
+                    }
                 }
-            }
-            steps{
-                        echo "test the pipeline..."
+                steps{
+                      script{
+                        gv.testApp()
+                      }
                 }
             }
 
-         stage("deploy"){
-             steps{
-                        echo "deploy the pipeline..."
-                        echo "deploying version ${params.VERSION}"
+            stage("deploy"){
+                steps{
+                        script{
+                            gv.deployApp()
+                        }
                   }
              }
 
