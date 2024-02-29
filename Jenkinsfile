@@ -10,14 +10,13 @@ pipeline{
         parameters{
             choice(name: 'VERSION',choices:["1.1.0","1.1.1","1.1.2"],description:'select version')
             booleanParam(name:'executeTests',defaultValue:true,description: '')
-            string(name:'build',defaultValue:'test',description:'')
         }
 
         stages{
             stage("build"){
                 steps{
                     script{
-                            echo "build the pipeline in ${BRANCH_NAME}..."
+                            echo "build the pipeline in ..."
                             echo "build version ${NEW_VERSION}..."
                             sh "mvn install"
                     }
