@@ -44,7 +44,9 @@ pipeline{
             stage("build and push image"){
                             steps{
                                   script{
-                                   buildImage("fadhiljr/mssample:java-maven-2.2")
+                                      buildImage("fadhiljr/mssample:java-maven-2.4")
+                                      dockerLogin()
+                                      dockerPush("fadhiljr/mssample:java-maven-2.4")
                                   }
                             }
              }
