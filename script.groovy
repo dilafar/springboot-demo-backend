@@ -9,11 +9,11 @@ def testApp(){
 }
 def buildImage(){
     withCredentials([
-            usernamePassword(credentialsId:'docker-credentials',usernameVariable:'USER',passwordVariable:'PASS')
+            usernamePassword(credentialsId:'nexus-credentials',usernameVariable:'USER',passwordVariable:'PASS')
     ]){
-        sh "docker build -t fadhiljr/mssample:java-maven-2.0 ."
-        sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
-        sh "docker push fadhiljr/mssample:java-maven-2.0"
+        sh "docker build -t 167.99.248.163:8083 /mssample:java-maven-2.0 ."
+        sh "echo ${PASS} | docker login -u ${USER} --password-stdin 167.99.248.163:8083"
+        sh "docker push 167.99.248.163:8083/mssample:java-maven-2.0"
 
     }
 }
