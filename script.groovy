@@ -1,3 +1,4 @@
+#!usr/bin/env groovy
 
 def buildApp(){
     echo "build the pipeline in ..."
