@@ -54,9 +54,9 @@ pipeline{
             stage("build and push image"){
                             steps{
                                   script{
-                                      buildImage(IMAGE_NAME)
+                                      buildImage("fadhiljr/mssample:${IMAGE_NAME}")
                                       dockerLogin()
-                                      dockerPush(IMAGE_NAME)
+                                      dockerPush("fadhiljr/mssample:${IMAGE_NAME}")
                                   }
                             }
              }
