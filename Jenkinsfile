@@ -71,6 +71,26 @@ pipeline{
                   }
              }
 
+            stage("commit version update"){
+                steps{
+                    script{
+                        withCredentials([
+                                usernamePassword(credentialsId: 'git-credentials', usernameVariable:'USER',passwordVariable:'PASS')
+                        ]){
+                            sh"git config --global user.name 'jenkins'"
+                            sh"git config --global user.email 'jenkins@example.com'"
+                            sh"git remote set-url origin https://${USER}:${PASS}@github.com/dilafar/springboot-demo-backend.git"
+                            sh"git add ."
+                            sh"git status"
+                            sh"git branch"
+                            sh"git config --list"
+                            sh"git commit -m 'fix commit version bump and update the version'"
+                            sh"git push origin HEAD:version-change"
+                        }
+                    }
+                }
+            }
+
         }
 
 }
