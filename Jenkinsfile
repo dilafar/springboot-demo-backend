@@ -44,7 +44,7 @@ pipeline{
             stage("build and push image"){
                             steps{
                                   script{
-                                   buildImage()
+                                   buildImage("fadhiljr/mssample:java-maven-2.2 .")
                                   }
                             }
              }
